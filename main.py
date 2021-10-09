@@ -1,9 +1,25 @@
+
+
+
+
+#%%
 import os
 from flask import Flask, render_template, url_for, request, jsonify, session
 import time
-
+import warnings
+warnings.filterwarnings("ignore")
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+import tensorflow as tf
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+import dialogue
+import pandas as pd
+#%%
 print(os.getcwd())
 app = Flask(__name__)
+global chat
+chat=dialogue.chat_interface_handler()
+#%%
 ################################################################
 # redirect - used to call the decorated function with appropriate parameters passed.
 ######################################################################
@@ -20,18 +36,26 @@ def home() :
 # Function accepting simple post and examining it to produce output
 ######################################################################
 @app.route("/uin",methods=["POST"])
-def user_requests(uin):
+def user_requests():
     """User input is handled as an XML file from the POST mechanism"""
-    print("request recieved")
+    print("Request : recieved")
     if request.method == "POST":
-        print("identified as POST request")
+        print("Identified as request : POST")
+        #print(type(request))
+        #print(str(request))
+        print("Request is :",request)
         try:
-            print(request.args)
+            #print("Request Arguments :",request.args)
+            #print("Request form Keys :",request.form.keys())
+            inp=request.form["data"]
+            txt=chat.dialog_in(inp)
+            return txt
         except:
-            pass
-        print("received packets as it is")
-        print(uin)
-    return uin
+            print("This has failed")
+            return "There is something wrong with Data"
+        #print("received packets as it is")
+        #print(uinput.xml")
+    
     
 ######################################################################
 # End of Function
@@ -53,7 +77,7 @@ def close():
 ######################################################################
 #
 ######################################################################
-
+#%%
 
 ######################################################################
 # Running the Basic Flask app here
@@ -62,6 +86,7 @@ if __name__=='__main__':
     app.run()
 
 
+#%%
 """
 Use this function for succesful training message and rediction to server
 @app.route('/login', methods=['GET', 'POST'])
