@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../static/css/home.css">
+    <title> 
+        Shrav - Reporting Industrial Disasters
+    </title>
+</head>
+
+<body>
+    <div id="Title">
+        <img id="logo" src="../static/assets/Chatbot_img3.png">
+        <div id="intro_id"> <h1 id="into_desc">Preventing Disasters one at a time</h1> </div>
+        <img id="icon" src="static/assets/icon.png">
+    </div>
+    </div>
+    <div class="container" id="parent">
+        <div class="container_makers" id="makers">
+            <h2 id="meet_makers">Meet the Makers</h2>
+            <div class="user-tile">
+                <div class ="user_desc">
+                    <h3 class="desc"> <a href="https://www.linkedin.com/in/sheshankjoshi/">Sheshank Joshi</a></h3>
+                    <img class="img-profile" src="../static/assets/Sheshank.jpg">
+                    <p class="desc-hobby">Elephants are Majestic. I just love them. Cricket is my passion besides AI. I designed Languge Model</p>
+                </div>
+            </div>
+            <div class="user-tile">
+                <div class="user_desc">
+                    <h3 class="desc"> <a href="https://www.linkedin.com/in/harshavardhan-gorakh-a9a115b/">Harshavardhan Gorakh</a></h3>
+                    <img class="img-profile" src="../static/assets/Harshavardhan.jpg">
+                    <p class="desc-hobby">Giraffees are a wonder of wild. I visit zoo exclusively for them. I designed Neural Network for processing</p>
+                </div>
+            </div>
+        </div>
+        <div class="container-chat" id="chat">
+            <div class="chat_entry" id="chat_record">
+                <!//Chat entries get placed dynamically here.>
+            </div>
+            <div class = "text_entry" id="text_input">
+                <input type="Submit" id="reset" style="width:10%;"value="reset">
+                <input type="text" style="width:80%" onchange="submitValue();" id="user_input" name="user_input">
+                <button onclick="submitValue();" id = "submit_in" style="width : 10%;" value="Send">
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="../static/js/home.js" type="text/javascript"> 
+    </script>
+</body>
