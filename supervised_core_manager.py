@@ -174,11 +174,4 @@ class sup_manager(sm.sup_models):
         #print(feature_names[top_k_idx], feature_importances)
         return self.X_train[feature_names[top_k_idx]]
     #
-
-    
-
-
-
-
-
 #%%

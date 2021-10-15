@@ -86,17 +86,5 @@ class sup_models():
         except:
             print("The appropriate folder hasn't been found. Hence saving the parameters is not implemented.")
     #
-    
-    
-    
-        
-
-
-#%%
-
-
-#%%
-
-
 #%%
 

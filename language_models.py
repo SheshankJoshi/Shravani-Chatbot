@@ -402,23 +402,26 @@ class NLP_LM():
         models_peep=[]
         i=0
         for model_given in self.model:
-            i+=1
-            model=self.model[model_given]
-            scores=[]
-            #print("-----------------------")
-            #print("model :",model_given)
-            for order in range(2,self.max_order+1):
-                #temp["ngrm_"+str(order)]=temp["tok"].apply(ngrams,n=order).apply(list)
-                k=temp["tok"].apply(ngrams,n=order).apply(list)
-                #print("Order :",order)
-                k=k.apply(self.ngram_score_calculator,n=order,model=model).apply(sum)
-                #k = k.rename(columns={"tok":order})
-                k.name=model_given+"_order_"+str(order)
-                #print(k.name)
-                scores.append(k)
-            models_peep.append(pd.DataFrame(scores).T)
-            if i==self.max_order:
-                i=0
+            try:
+                i+=1
+                model=self.model[model_given]
+                scores=[]
+                #print("-----------------------")
+                #print("model :",model_given)
+                for order in range(2,self.max_order+1):
+                    #temp["ngrm_"+str(order)]=temp["tok"].apply(ngrams,n=order).apply(list)
+                    k=temp["tok"].apply(ngrams,n=order).apply(list)
+                    #print("Order :",order)
+                    k=k.apply(self.ngram_score_calculator,n=order,model=model).apply(sum)
+                    #k = k.rename(columns={"tok":order})
+                    k.name=model_given+"_order_"+str(order)
+                    #print(k.name)
+                    scores.append(k)
+                models_peep.append(pd.DataFrame(scores).T)
+                if i==self.max_order:
+                    i=0
+            except:
+                print("Not working for the model :",model_given)
         ret=pd.concat(models_peep,axis=1) # This is the complete dataframe created for further analysis and is the important part of language models.
         print("Langauge Model Average Scores are Set")
         return ret
@@ -426,7 +429,12 @@ class NLP_LM():
     def ngram_score_calculator(self,ngram_list, n, model):
         """This create ngram model's score on a given corpus's ngram list for a given entry. The choice is ours. It will return the scores for each and every
         word in the list of words."""
-        score=[model.score(each[0],[each[i] for i in range(1,n)]) for each in ngram_list]
+        score=[]
+        for each in ngram_list:
+            try:
+                score.append(model.score(each[0],[each[i] for i in range(1,n)]))
+            except:
+                print("Not working out",each)
         #print(score)
         #print("-----------------\n")
         return score
